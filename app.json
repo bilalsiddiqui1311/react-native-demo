@@ -1,0 +1,10 @@
+{
+  "expo": {
+    "name": "Bilal-pipe",
+    "slug": "Bilal-pipe",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
