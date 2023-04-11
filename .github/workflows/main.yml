@@ -24,11 +24,10 @@ jobs:
         with:
           ruby-version: 2.7
       - name: Install Fastlane Dependencies
-        run: |
+        run: |  
           gem install bundler
           bundle install --gemfile=ios/Gemfile
           brew update
-          brew tap fastlane/fastlane
           brew install match
 
       # - name: Build and Upload
