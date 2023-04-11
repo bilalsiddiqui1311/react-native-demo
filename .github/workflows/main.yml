@@ -8,10 +8,6 @@ jobs:
     name: Build-IOS
     runs-on: macos-latest
     
-    strategy:
-      matrix:
-        node-version: [12.x]
-    
     steps:
       - uses: actions/setup-node@v1
         with:
@@ -21,32 +17,26 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Install Dependencies
-        run: |
-          yarn install
+        run: yarn install
       
-      - name: Install Fastlane
-        uses: actions/setup-ruby@v1
+      - name: Install Ruby and Fastlane
+        uses: ruby/setup-ruby@v1
         with:
-          ruby-version: 2.6
-      
-      - name: Install Fastlane
+          ruby-version: 2.7
+      - name: Install Fastlane Dependencies
         run: |
+          gem install bundler
           bundle install
-          bundle update fastlane
-
-      - name: Install Dependencies
-        run: |
-          sudo gem install fastlane
           brew install match
 
-      - name: Build and Upload
-        env:
-          APP_IDENTIFIER: your.app.bundle.id
-          APPLE_ID: your@apple.id
-          TEAM_ID: your.team.id
-          APP_ID: your-app-id
-          FIREBASE_CLI_TOKEN: ${{ secrets.FIREBASE_CLI_TOKEN }}
-        run: |
-          fastlane match appstore
-          fastlane ios build_ios
-          fastlane ios upload_to_firebase
+      # - name: Build and Upload
+      #   env:
+      #     APP_IDENTIFIER: your.app.bundle.id
+      #     APPLE_ID: your@apple.id
+      #     TEAM_ID: your.team.id
+      #     APP_ID: your-app-id
+      #     FIREBASE_CLI_TOKEN: ${{ secrets.FIREBASE_CLI_TOKEN }}
+      #   run: |
+      #     fastlane match appstore
+      #     fastlane ios build_ios
+      #     fastlane ios upload_to_firebase
