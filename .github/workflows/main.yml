@@ -22,7 +22,7 @@ jobs:
       - name: Install Fastlane
         run: |
           bundle install --gemfile=ios/Gemfile
-          bundle update fastlane
+          bundle update fastlane --gemfile=ios/Gemfile
                 
       # - name: Install Ruby and Fastlane
       #   uses: ruby/setup-ruby@v1
