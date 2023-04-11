@@ -27,6 +27,8 @@ jobs:
         run: |
           gem install bundler
           bundle install --gemfile=ios/Gemfile
+          brew update
+          brew tap fastlane/fastlane
           brew install match
 
       # - name: Build and Upload
