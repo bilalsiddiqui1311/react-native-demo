@@ -1,14 +1,38 @@
 name: Build and deploy iOS
 on:
   push:
-    branches: [main]
+    branches: [ios]
 
 jobs:
-  build-and-upload:
+  testFlight-build:
+    name: Build-IOS
     runs-on: macos-latest
+    
+    strategy:
+      matrix:
+        node-version: [12.x]
+    
     steps:
-      - name: Checkout Code
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '14.x'
+     
+      - name: Checkout to git repository
         uses: actions/checkout@v2
+
+      - name: Install Dependencies
+        run: |
+          yarn install
+      
+      - name: Install Fastlane
+        uses: actions/setup-ruby@v1
+        with:
+          ruby-version: 2.6
+      
+      - name: Install Fastlane
+        run: |
+          bundle install
+          bundle update fastlane
 
       - name: Install Dependencies
         run: |
