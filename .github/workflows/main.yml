@@ -23,7 +23,7 @@ jobs:
         run: |
           bundle install --gemfile=ios/Gemfile
           bundle update fastlane --gemfile=ios/Gemfile
-          gem install match
+          gem install fastlane match
 
       # - name: Build and Upload
       #   env:
