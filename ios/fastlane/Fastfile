@@ -1,0 +1,33 @@
+# This file contains the fastlane.tools configuration
+# You can find the documentation at https://docs.fastlane.tools
+#
+# For a list of all available actions, check out
+#
+#     https://docs.fastlane.tools/actions
+#
+# For a list of all available plugins, check out
+#
+#     https://docs.fastlane.tools/plugins/available-plugins
+#
+
+# Uncomment the line if you want fastlane to automatically update itself
+# update_fastlane
+
+default_platform(:ios)
+
+platform :ios do
+  desc "Description of what the lane does"
+
+  lane :build_ios do
+    match(type: "appstore")
+    gradle(task: "assembleRelease")
+    gym(scheme: "Bilalpipe", export_method: "app-store")
+  end
+
+  lane :upload_to_firebase do
+    firebase_app_distribution(
+      app: "1:1081787748073:ios:344b8d5b7c1c46651bea78",
+      firebase_cli_token: "1//034BPeVqWZDk1CgYIARAAGAMSNwF-L9Ir6WmMzLxoOJnjjBGvm_79P6X9eYKajM-beeArDW8pb1PFjDQ36wt5gXSB1Ov9TDyKIto",
+      groups: "Tester"
+    )
+  end

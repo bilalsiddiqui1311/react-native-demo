@@ -4,42 +4,25 @@ on:
     branches: [ios]
 
 jobs:
-  testFlight-build:
-    name: Build-IOS
+  build-and-upload:
     runs-on: macos-latest
-    
-    strategy:
-      matrix:
-        node-version: [12.x]
-    
     steps:
-      - uses: actions/setup-node@v1
-        with:
-          node-version: '14.x'
-     
-      - name: Checkout to git repository
+      - name: Checkout Code
         uses: actions/checkout@v2
 
       - name: Install Dependencies
         run: |
-          yarn install
-      
-      - name: Install Fastlane
-        uses: actions/setup-ruby@v1
-        with:
-          ruby-version: 2.6
-      
-      - name: Install Fastlane
+          sudo gem install fastlane
+          brew install match
+
+      - name: Build and Upload
+        env:
+          APP_IDENTIFIER: your.app.bundle.id
+          APPLE_ID: your@apple.id
+          TEAM_ID: your.team.id
+          APP_ID: your-app-id
+          FIREBASE_CLI_TOKEN: ${{ secrets.FIREBASE_CLI_TOKEN }}
         run: |
-          bundle install
-          bundle update fastlane
-      
-      - name: Build and upload to TestFlight
-        run: |
-          bundle exec fastlane ios beta
-          env: 
-             APPLE_ID: ${{ secrets.APPLE_ID }}
-             APP_STORE_EMAIL: ${{ secrets.APP_STORE_EMAIL }}
-             APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
-             IOS_DISTRIBUTION_CERTS_GITHUB_URL: ${{ secrets.IOS_DISTRIBUTION_CERTS_GITHUB_URL }}
-             MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
+          fastlane match appstore
+          fastlane ios build_ios
+          fastlane ios upload_to_firebase

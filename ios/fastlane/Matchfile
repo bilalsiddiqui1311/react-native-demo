@@ -1,0 +1,4 @@
+git_url("git@github.com:bilalsiddiqui1311/certandprovision.git")
+storage_mode("git")
+type("appstore")
+readonly(true)
