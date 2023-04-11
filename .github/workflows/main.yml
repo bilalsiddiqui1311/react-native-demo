@@ -18,17 +18,22 @@ jobs:
 
       - name: Install Dependencies
         run: yarn install
-      
-      - name: Install Ruby and Fastlane
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: 2.7
-      - name: Install Fastlane Dependencies
-        run: |  
-          gem install bundler
-          bundle install --gemfile=ios/Gemfile
-          brew update
-          brew install match
+
+      - name: Install Fastlane
+        run: |
+          bundle install
+          bundle update fastlane
+                
+      # - name: Install Ruby and Fastlane
+      #   uses: ruby/setup-ruby@v1
+      #   with:
+      #     ruby-version: 2.7
+      # - name: Install Fastlane Dependencies
+      #   run: |  
+      #     gem install bundler
+      #     bundle install --gemfile=ios/Gemfile
+      #     brew update
+      #     brew install match
 
       # - name: Build and Upload
       #   env:
