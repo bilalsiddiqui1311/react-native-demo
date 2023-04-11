@@ -23,17 +23,7 @@ jobs:
         run: |
           bundle install --gemfile=ios/Gemfile
           bundle update fastlane --gemfile=ios/Gemfile
-                
-      # - name: Install Ruby and Fastlane
-      #   uses: ruby/setup-ruby@v1
-      #   with:
-      #     ruby-version: 2.7
-      # - name: Install Fastlane Dependencies
-      #   run: |  
-      #     gem install bundler
-      #     bundle install --gemfile=ios/Gemfile
-      #     brew update
-      #     brew install match
+          gem install match
 
       # - name: Build and Upload
       #   env:
